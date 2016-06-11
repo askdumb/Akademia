@@ -19,11 +19,9 @@ namespace Snake
 
     public partial class SnakeGame : UserControl, ISwitchable
     {
-
         private TimeSpan timerSpeed = new TimeSpan(Settings.timerSpeed);
-        private List<PlusFood> plusFood = new List<PlusFood>();
-        private List<MinusFood> minusFood = new List<MinusFood>();
-        private List<Point> snakeBody = new List<Point>();
+        private List<Element> foodList = new List<Element>();
+        private List<SnakePart> snakeBody = new List<SnakePart>();
         private Random random = new Random();
         private DispatcherTimer gameTimer;
         private Point currentPosition;
@@ -39,13 +37,12 @@ namespace Snake
         private void StartGame()
         {
             snakeBody.Clear();
-            plusFood.Clear();
-            minusFood.Clear();
+            foodList.Clear();
             myCanvas.Children.Clear();
             new Settings();
+            currentPosition = Settings.head;
             Timer();
             Paint();
-            currentPosition = Settings.head;
         }
 
 
@@ -61,38 +58,39 @@ namespace Snake
 
         private void Paint()
         {
-            DrawSnake(Settings.head);
+            DrawSnake(currentPosition);
 
-            // Generate food
             for (int i = 0; i < 5; i++)
             {
-                plusFood.Insert(i, new PlusFood(NewFoodPosition(myCanvas)));
-                myCanvas.Children.Insert(i, plusFood[i].FeedBack());
+                foodList.Insert(i, new MinusFood(NewFoodPosition(myCanvas)));
+                myCanvas.Children.Insert(i, foodList[i].FeedBack());
+            }
 
-                minusFood.Insert(i, new MinusFood(NewFoodPosition(myCanvas)));
-                myCanvas.Children.Insert(i, minusFood[i].FeedBack());
+            for (int i = 5; i < 10; i++)
+            {
+                foodList.Insert(i, new PlusFood(NewFoodPosition(myCanvas)));
+                myCanvas.Children.Insert(i, foodList[i].FeedBack());
             }
         }
 
 
         private void DrawSnake(Point position)
         {
-            SnakePart bodyPart = new SnakePart(position);
-            myCanvas.Children.Add(bodyPart.FeedBack());
-            snakeBody.Add(position);
+            snakeBody.Add(new SnakePart(position));
+            myCanvas.Children.Add(snakeBody[snakeBody.Count - 1].FeedBack());
 
             int elementsCount = myCanvas.Children.Count;
 
             if (elementsCount >= Settings.snakeLength)
             {
-                myCanvas.Children.RemoveAt(elementsCount - Settings.snakeLength + plusFood.Count + minusFood.Count);
+                myCanvas.Children.RemoveAt(elementsCount - Settings.snakeLength + foodList.Count);
                 snakeBody.RemoveAt(elementsCount - Settings.snakeLength);
             }
-            
-            // Update score
+
+
             if (Settings.score < 0) Settings.score = 0;
             lblScore.Content = "Score: " + Settings.score.ToString();
-        }     
+        }
 
 
         private Point NewFoodPosition(Canvas screen)
@@ -156,7 +154,6 @@ namespace Snake
             }
 
 
-            // Restrict the canvas dimensions
             if ((currentPosition.X < 0) || (currentPosition.X > myCanvas.ActualWidth - 10) ||
                 (currentPosition.Y < 0) || (currentPosition.Y > myCanvas.ActualHeight - 10))
             {
@@ -164,10 +161,7 @@ namespace Snake
             }
 
 
-            // Collisions with food
-            int n = 0, x = 0;
-
-            foreach (var foodPiece in plusFood)
+            foreach (var foodPiece in foodList)
             {
                 if ((Math.Abs(foodPiece.position.X - currentPosition.X) < Settings.snakeSize) &&
                     (Math.Abs(foodPiece.position.Y - currentPosition.Y) < Settings.snakeSize))
@@ -175,33 +169,16 @@ namespace Snake
                     Settings.snakeLength += Settings.snakeSize;
                     foodPiece.myScore();
 
-                    x = myCanvas.Children.IndexOf(foodPiece.FeedBack());
-                    n = plusFood.IndexOf(foodPiece);
-                    myCanvas.Children.RemoveAt(x);
-                    plusFood.RemoveAt(n);
-                    plusFood.Insert(n, new PlusFood(NewFoodPosition(myCanvas)));
-                    myCanvas.Children.Insert(n, plusFood[n].FeedBack());
+                    int numberOfChild = myCanvas.Children.IndexOf(foodPiece.FeedBack());
+                    int numberOfFoodPiece = foodList.IndexOf(foodPiece);
+                    myCanvas.Children.RemoveAt(numberOfChild);
+                    foodList.RemoveAt(numberOfFoodPiece);
 
-                    break;
-                }
-            }
+                    bool whoAreYou = foodPiece.WhoAreYou();
 
-
-            // Snake's body collision
-            foreach (var foodPiece in minusFood)
-            {
-                if ((Math.Abs(foodPiece.position.X - currentPosition.X) < Settings.snakeSize) &&
-                    (Math.Abs(foodPiece.position.Y - currentPosition.Y) < Settings.snakeSize))
-                {
-                    Settings.snakeLength += Settings.snakeSize;
-                    foodPiece.myScore();
-
-                    x = myCanvas.Children.IndexOf(foodPiece.FeedBack());
-                    n = minusFood.IndexOf(foodPiece);
-                    myCanvas.Children.RemoveAt(x);
-                    minusFood.RemoveAt(n);
-                    minusFood.Insert(n, new MinusFood(NewFoodPosition(myCanvas)));
-                    myCanvas.Children.Insert(n, minusFood[n].FeedBack());
+                    if (whoAreYou) foodList.Insert(numberOfFoodPiece, new PlusFood(NewFoodPosition(myCanvas)));
+                    else foodList.Insert(numberOfFoodPiece, new MinusFood(NewFoodPosition(myCanvas)));
+                    myCanvas.Children.Insert(numberOfChild, foodList[numberOfFoodPiece].FeedBack());
 
                     break;
                 }
@@ -210,44 +187,20 @@ namespace Snake
 
             for (int a = 0; a < (snakeBody.Count - 2 * Settings.snakeSize); a++)
             {
-                if ((Math.Abs(snakeBody[a].X - currentPosition.X) < (Settings.snakeSize)) &&
-                    (Math.Abs(snakeBody[a].Y - currentPosition.Y) < (Settings.snakeSize)))
+                if ((Math.Abs(snakeBody[a].position.X - currentPosition.X) < (Settings.snakeSize)) &&
+                    (Math.Abs(snakeBody[a].position.Y - currentPosition.Y) < (Settings.snakeSize)))
                 {
                     Settings.gameOver = true;
                 }
             }
         }
 
-        //private void FoodColision(List<Food> food, int numberOfChild, int numberOfFoodPiece)
-        //{
-        //    foreach (var foodPiece in food)
-        //    {
-        //        if ((Math.Abs(foodPiece.position.X - currentPosition.X) < Settings.snakeSize) &&
-        //            (Math.Abs(foodPiece.position.Y - currentPosition.Y) < Settings.snakeSize))
-        //        {
-        //            Settings.snakeLength += Settings.snakeSize;
-        //            foodPiece.myScore();
-
-        //            numberOfFoodPiece = myCanvas.Children.IndexOf(foodPiece.FeedBack());
-        //            numberOfChild = food.IndexOf(foodPiece);
-        //            myCanvas.Children.RemoveAt(numberOfFoodPiece);
-        //            food.RemoveAt(numberOfChild);
-        //            food.Insert(n, new PlusFood(NewFoodPosition(myCanvas)));
-        //            myCanvas.Children.Insert(numberOfChild, food[numberOfChild].FeedBack());
-
-        //            break;
-        //        }
-        //    }
-
-        //}
-
 
         private void GameOver()
         {
             if (Settings.score < 0) Settings.score = 0;
-            //SaveScore();
 
-            MessageBox.Show("You Lose! Your score is " + Settings.score.ToString() + 
+            MessageBox.Show("You Lose! Your score is " + Settings.score.ToString() +
                 "\nPress enter to play again.", "Game Over", MessageBoxButton.OK, MessageBoxImage.Hand);
             StartGame();
         }

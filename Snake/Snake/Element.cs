@@ -35,6 +35,12 @@ namespace Snake
         }
 
 
+        public virtual bool WhoAreYou()
+        {
+            return true;
+        }
+
+
         public virtual void myScore()
         {
             Settings.score += Settings.scorePoints;

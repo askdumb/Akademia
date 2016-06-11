@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Snake
 {
-    class MinusFood : Element//, IFood
+    class MinusFood : Element, IFood
     {
 
         public MinusFood(Point position)
@@ -17,6 +17,10 @@ namespace Snake
             this.Init(Settings.minusFoodColor, Settings.foodSize);
         }
 
+        public override bool WhoAreYou()
+        {
+            return false;
+        }
 
         public override void myScore()
         {
