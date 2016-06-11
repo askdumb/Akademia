@@ -1,0 +1,15 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="Snake.SnakeGame"
+	d:DesignWidth="640" d:DesignHeight="480" Width="800" Height="600" KeyDown="KeyPressed" KeyUp="KeyReleased">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Canvas Name="myCanvas" Background="Wheat" HorizontalAlignment="Right" Width="642" Height="410" Margin="0,72.611,73.134,117.388"/>
+        <Label Name="lblScore" Content="Score" HorizontalAlignment="Left" Height="34" Margin="555.97,10,0,0" VerticalAlignment="Top"  Width="162.896" HorizontalContentAlignment="Center" Foreground="#FF211B1B" Background="Transparent" FontSize="20" FontFamily="Rockwell Extra Bold"  FontWeight="Bold"/>
+        <Button HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" Width="100" Content="&lt;&lt; Menu" Height="25" Click="Button_Click"/>
+    </Grid>
+</UserControl>
