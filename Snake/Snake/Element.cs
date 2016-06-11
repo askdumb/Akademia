@@ -7,7 +7,7 @@ using System.Windows.Controls;
 namespace Snake
 {
 
-    class Element
+    class Element : IScore
     {
         public Shape element { get; set; }
         public Point position { get; set; }
@@ -22,7 +22,7 @@ namespace Snake
         }
 
 
-        private void DrawElement()
+        protected void DrawElement()
         {
             Canvas.SetLeft(this.element, this.position.X);
             Canvas.SetTop(this.element, this.position.Y);
@@ -32,6 +32,12 @@ namespace Snake
         public UIElement FeedBack()
         {
             return element;
+        }
+
+
+        public virtual void myScore()
+        {
+            Settings.score += Settings.scorePoints;
         }
 
 
