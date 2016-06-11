@@ -7,7 +7,7 @@ using System.Windows.Controls;
 namespace Snake
 {
 
-    class Element : IScore
+    class Element : IFood
     {
         public Shape element { get; set; }
         public Point position { get; set; }
