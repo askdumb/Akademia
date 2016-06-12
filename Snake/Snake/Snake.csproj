@@ -58,6 +58,9 @@
     <Compile Include="IFood.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="ISwitchable.cs" />
+    <Compile Include="Menu\Scores.xaml.cs">
+      <DependentUpon>Scores.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Menu\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -84,6 +87,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Menu\Scores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Menu\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -4,11 +4,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.IO;
+using System.Net;
 
 
 namespace Snake
 {
-
     public partial class SnakeGame : UserControl, ISwitchable
     {
         private TimeSpan timerSpeed = new TimeSpan(Settings.timerSpeed);
@@ -188,26 +189,34 @@ namespace Snake
         }
 
 
+        private void SaveFile()
+        {
+            string path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Snake.txt");
+            var date = DateTime.Now;
+            StreamWriter save;
+
+            if(!File.Exists(path)){
+                save = File.CreateText(path);
+                save.Close();
+            }
+
+            if(File.Exists(path))
+            {
+                save = File.AppendText(path);
+                save.WriteLine(date + "         " + Settings.score);
+                save.Close();
+            }
+           
+        }
+
+
         private void GameOver()
         {
-            if (Settings.score < 0) Settings.score = 0;
+            SaveFile();
 
             MessageBox.Show("You Lose! Your score is " + Settings.score.ToString() +
                 "\nPress enter to play again.", "Game Over", MessageBoxButton.OK, MessageBoxImage.Hand);
             StartGame();
-        }
-
-
-        private void KeyPressed(object sender, KeyEventArgs e)
-        {
-            this.Focus();
-            Input.StateOfKey(e.Key, true);
-        }
-
-        private void KeyReleased(object sender, KeyEventArgs e)
-        {
-            this.Focus();
-            Input.StateOfKey(e.Key, false);
         }
 
 

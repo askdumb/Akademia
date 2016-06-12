@@ -6,7 +6,6 @@ namespace Snake
 {
     class Input
     {
-
         private static Hashtable keys = new Hashtable();
 
         public static bool Pressed(Key key)
@@ -17,10 +16,9 @@ namespace Snake
             return (bool)keys[key];
         }
 
-        public static bool StateOfKey(Key key, bool state)
+        public static void StateOfKey(Key key, bool state)
         {
             keys[key] = state;
-            return state;
         }
 
     }

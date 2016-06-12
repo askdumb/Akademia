@@ -8,9 +8,9 @@ namespace Snake
     {
         public PlusFood(Point position)
         {
-            this.element = new Ellipse();
+            element = new Ellipse();
             this.position = position;
-            this.Init(Settings.plusFoodColor, Settings.foodSize);
+            Init(Settings.plusFoodColor, Settings.foodSize);
         }
 
         public override bool WhoAreYou()
@@ -20,7 +20,7 @@ namespace Snake
 
         public override void myScore()
         {
-            base.myScore();
+            Settings.score += Settings.scorePoints;
         }
 
     }

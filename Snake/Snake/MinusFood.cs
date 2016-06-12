@@ -6,12 +6,11 @@ namespace Snake
 {
     class MinusFood : Element, IFood
     {
-
         public MinusFood(Point position)
         {
-            this.element = new Rectangle();
+            element = new Rectangle();
             this.position = position;
-            this.Init(Settings.minusFoodColor, Settings.foodSize);
+            Init(Settings.minusFoodColor, Settings.foodSize);
         }
 
         public override bool WhoAreYou()

@@ -7,12 +7,12 @@ namespace Snake
     public class Settings
     {
         public static moveDirection direction;
-        public static int snakeSize;
-        public static int foodSize;
-        public static int timerSpeed;
-        public static int snakeLength { get; set; }
+        public static int snakeLength;
+        public static int scorePoints;
+        public static int snakeSize { get; set; }
+        public static int foodSize { get; set; }
+        public static int timerSpeed { get; set; }
         public static int score { get; set; }
-        public static int scorePoints { get; set; }
         public static bool gameOver { get; set; }
         public static Point head { get; set; }
         public static Brush snakeColor { get; set; }

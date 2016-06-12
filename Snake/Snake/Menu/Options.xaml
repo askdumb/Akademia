@@ -15,15 +15,13 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <TextBlock Height="40" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="200" Text="Options" TextWrapping="Wrap" FontSize="21.333"/>
         <Button Height="25" HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" Width="100" Content="&lt;&lt; Menu" Click="Button_Click"/>
 
         <ComboBox Name="SnakeSize" HorizontalAlignment="Left" Height="25" Width="128" Margin="278,314,0,0" 
 				  VerticalAlignment="Top"  SelectionChanged="SnakeSize_SelectionChanged">
-            <ComboBoxItem>Small</ComboBoxItem>
-            <ComboBoxItem IsSelected="True">Moderate</ComboBoxItem>
-            <ComboBoxItem>Big</ComboBoxItem>
-            <ComboBoxItem>Large</ComboBoxItem>
+            <ComboBoxItem Name="Small">Small</ComboBoxItem>
+            <ComboBoxItem IsSelected ="true" Name="Moderate">Moderate</ComboBoxItem>
+            <ComboBoxItem Name="Big">Big</ComboBoxItem>
         </ComboBox>
 
         <ComboBox Name="FoodSize" HorizontalAlignment="Left" Margin="278,376,0,0" VerticalAlignment="Top" 
@@ -34,18 +32,17 @@
         </ComboBox>
 
         <ComboBox Name="TimerSpeed" HorizontalAlignment="Left" Margin="278,437,0,0" VerticalAlignment="Top" Height="25" Width="128" SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem>Very slow</ComboBoxItem>
             <ComboBoxItem>Slow</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Moderate</ComboBoxItem>
             <ComboBoxItem>Fast</ComboBoxItem>
         </ComboBox>
 
         <Label Content="SNAKE SIZE" HorizontalAlignment="Left" Margin="105,314,0,0" VerticalAlignment="Top" 
-			   Width="89" Height="30" FontWeight="Bold"/>
+			   Width="89" Height="30" FontWeight="Bold" Foreground="#FFFFFDFD"/>
         <Label Content="FOOD SIZE" HorizontalAlignment="Left" Margin="105,376,0,0" VerticalAlignment="Top" 
-			   Width="89" Height="27" FontWeight="Bold"/>
+			   Width="89" Height="27" FontWeight="Bold" Foreground="#FFFFFDFD"/>
         <Label Content="SPEED" HorizontalAlignment="Left" Margin="105,437,0,0" VerticalAlignment="Top" 
-			   Width="89" Height="27" FontWeight="Bold"/>
+			   Width="89" Height="27" FontWeight="Bold" Foreground="#FFFFFDFD"/>
 
     </Grid>
 </UserControl>

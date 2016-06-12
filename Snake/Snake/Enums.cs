@@ -20,9 +20,8 @@ namespace Snake
 
     public enum timeSpan
     {
-        fast = 1,
+        fast = 100,
         moderate = 10000,
-        slow = 100000,
-        damnslow = 500000
+        slow = 500000
     }
 }

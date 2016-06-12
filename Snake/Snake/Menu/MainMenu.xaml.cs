@@ -12,15 +12,14 @@ using System.Windows.Shapes;
 
 namespace Snake
 {
-
     public partial class MainMenu : UserControl, ISwitchable
     {
-
         public MainMenu()
         {
             InitializeComponent();
 
         }
+
 
         #region ISwitchable Members
         public void UtilizeState(object state)
@@ -36,6 +35,11 @@ namespace Snake
         private void optionsButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Switcher.Switch(new Options());
+        }
+
+        private void lastScoresButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Switcher.Switch(new Scores());
         }
         #endregion
 

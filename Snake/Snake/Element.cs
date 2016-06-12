@@ -6,7 +6,6 @@ using System.Windows.Controls;
 
 namespace Snake
 {
-
     class Element : IFood
     {
         public Shape element { get; set; }
@@ -43,7 +42,7 @@ namespace Snake
 
         public virtual void myScore()
         {
-            Settings.score += Settings.scorePoints;
+
         }
 
 

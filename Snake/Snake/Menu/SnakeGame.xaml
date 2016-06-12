@@ -5,7 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	x:Class="Snake.SnakeGame"
-	d:DesignWidth="640" d:DesignHeight="480" Width="800" Height="600" KeyDown="KeyPressed" KeyUp="KeyReleased">
+	d:DesignWidth="640" d:DesignHeight="480" Width="800" Height="600">
 
     <Grid x:Name="LayoutRoot" Background="White">
         <Canvas Name="myCanvas" Background="Wheat" HorizontalAlignment="Right" Width="642" Height="410" Margin="0,72.611,73.134,117.388"/>
